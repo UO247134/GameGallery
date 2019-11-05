@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/menu_tools" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/menu_send" />
+        </menu>
+    </item>
+    <item android:title="Genre">
+        <menu>
+            <item
+                android:id="@+id/nav_genre_Action"
+                android:title="@string/menu_genre_Action"
+                android:icon="@drawable/ic_menu_action"
+                android:checked="false"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_genre_Terror"
+                android:title="@string/menu_genre_Terror"
+                android:icon="@drawable/ic_menu_terror"
+                android:checked="false"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_genre_Shooter"
+                android:title="@string/menu_genre_Shooter"
+                android:icon="@drawable/ic_menu_shooter"
+                android:checked="false"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_genre_Race"
+                android:title="@string/menu_genre_Race"
+                android:icon="@drawable/ic_menu_race"
+                android:checked="false"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_genre_Sport"
+                android:title="@string/menu_genre_Sport"
+                android:icon="@drawable/ic_menu_sport"
+                android:checked="false"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/nav_genre_RPG"
+                android:title="@string/menu_genre_RPG"
+                android:icon="@drawable/ic_menu_rpg"
+                android:checked="false"
+                android:checkable="true"/>
+        </menu>
+    </item>
+</menu>
