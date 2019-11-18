@@ -1,5 +1,6 @@
 package com.example.gamegallery.tabs
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamegallery.R
+import com.example.gamegallery.datos.CircleTransform
 import com.example.gamegallery.domain.Juego
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.find
@@ -31,11 +33,12 @@ class JuegoListAdapter (val listaJuegos: List<Juego>):
 
         private val iconJuego = view.find<ImageView>(R.id.icon_juego)
         private val nombreJuego = view.find<TextView>(R.id.nombre_juego)
-
         fun bindJuego(juego: Juego){
+
             with(juego){
-                Picasso.with(itemView.context).load(R.drawable.ic_menu_home).into(iconJuego)
-                nombreJuego.text=nombre;
+                val url = icon
+                Picasso.with(itemView.context).load(url).transform(CircleTransform()).into(iconJuego)
+                nombreJuego.text=nombre
             }
 
         }
