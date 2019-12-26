@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "80258281065",
+    "firebase_url": "https://appcom-26d9f.firebaseio.com",
+    "project_id": "appcom-26d9f",
+    "storage_bucket": "appcom-26d9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80258281065:android:21d960115e7be72bd6bcf8",
+        "android_client_info": {
+          "package_name": "com.example.gamegallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80258281065-5udm83j4mpdqqc1of8138uu1qhsdv42t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMmaC3V0tPGo--12aPP0O9sulvwNsDYkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80258281065-5udm83j4mpdqqc1of8138uu1qhsdv42t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
