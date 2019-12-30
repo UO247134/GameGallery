@@ -13,7 +13,7 @@ import com.example.gamegallery.datos.Datos
 import com.example.gamegallery.domain.Info
 import kotlinx.android.synthetic.main.tab_base.*
 
-open class TabBase(private val nombreConsola:String,private val info:Info) : Fragment()
+open class TabBase(private val nombreConsola:String) : Fragment()
 {
 
 
@@ -25,20 +25,20 @@ open class TabBase(private val nombreConsola:String,private val info:Info) : Fra
         super.onViewCreated(view, savedInstanceState)
         recycler_base.apply{
             layoutManager= LinearLayoutManager(context)
-            adapter= JuegoListAdapter(info.getJuegos(nombreConsola))
-            addOnItemTouchListener(RecyclerTouchListener(context,this,MyClickListener(nombreConsola,info)))
+            adapter= JuegoListAdapter(Info.getJuegos(nombreConsola))
+            addOnItemTouchListener(RecyclerTouchListener(context,this,MyClickListener(nombreConsola)))
         }
 
     }
 
-    class MyClickListener(val nombreConsola: String,val info: Info) : RecyclerTouchListener.ClickListener{
+    class MyClickListener(val nombreConsola: String) : RecyclerTouchListener.ClickListener{
         override fun onLongClick(view: View?, position: Int) {
 
         }
 
         override fun onClick(view: View?, position: Int) {
             val intent = Intent (view?.context, SecondActivity::class.java)
-            intent.putExtra("Juego",info.getJuegos(nombreConsola)[position])
+            intent.putExtra("Juego",Info.getJuegos(nombreConsola)[position])
             view?.context?.startActivity(intent)
         }
 

@@ -10,7 +10,7 @@ import com.example.gamegallery.tabs.TabBase;
 public class PageAdapter extends FragmentStatePagerAdapter {
     public int counttab;
     String[] tituloTabs={"AllGames","3rdParty","PC","PS4","Xbox","Switch"};
-    Info info = new Info();
+
 
     public PageAdapter(FragmentManager fm){
         super(fm);
@@ -19,17 +19,17 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return new TabBase("All",info);
+                return new TabBase("All");
             case 1:
-                return new TabBase("3rd Party",info);
+                return new TabBase("3rd Party");
             case 2:
-                return new TabBase("PC",info);
+                return new TabBase("PC");
             case 3:
-                return new TabBase("PS4",info);
+                return new TabBase("PS4");
             case 4:
-                return new TabBase("Xbox",info);
+                return new TabBase("Xbox");
             case 5:
-                return new TabBase("Switch",info);
+                return new TabBase("Switch");
             default:
                 return null;
         }

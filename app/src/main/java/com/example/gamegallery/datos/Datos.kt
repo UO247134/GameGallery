@@ -12,7 +12,7 @@ class Datos {
 
 
     companion object {
-        fun getAllJuegos(info: Info) {
+        fun getAllJuegos() {
             var juegos = ArrayList<Juego>();
 
             val db = FirebaseFirestore.getInstance()
@@ -24,11 +24,12 @@ class Datos {
                             var nombre = document.get("nombre").toString()
                             var icon = document.get("icon").toString()
                             var consola = document.get("consola").toString()
-                            var j = Juego(nombre,icon,consola)
+                            var genero = document.get("genero").toString()
+                            var j = Juego(nombre,icon,consola,genero)
                             juegos.add(j)
 
                         }
-                        info.updateJuegos(juegos);
+                        Info.updateJuegos(juegos);
                     }
                     .addOnFailureListener { exception ->
                        throw exception

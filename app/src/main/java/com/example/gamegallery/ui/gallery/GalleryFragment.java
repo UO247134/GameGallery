@@ -37,6 +37,9 @@ public class GalleryFragment extends Fragment {
         viewPager = view.findViewById(R.id.pager);
         viewPager.setAdapter(new PageAdapter(getFragmentManager()));
         tabs.setupWithViewPager(viewPager);
+
+
+
         return view;
 
     }

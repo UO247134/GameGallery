@@ -21,11 +21,11 @@
     <string name="tab_text_5">XboxOne</string>
     <string name="tab_text_6">Switch</string>
 
-    <string name="menu_genre_Action">Action</string>
+    <string name="menu_genre_Action">Accion</string>
     <string name="menu_genre_Terror">Terror</string>
     <string name="menu_genre_Shooter">Shooter</string>
-    <string name="menu_genre_Race">Race</string>
-    <string name="menu_genre_Sport">Sport</string>
+    <string name="menu_genre_Race">Carreras</string>
+    <string name="menu_genre_Sport">Deportes</string>
     <string name="menu_genre_RPG">RPG</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

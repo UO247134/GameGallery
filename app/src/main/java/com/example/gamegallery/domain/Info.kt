@@ -4,29 +4,46 @@ import com.example.gamegallery.datos.Datos
 
 class Info {
 
-    var juegos:List<Juego> = ArrayList<Juego>()
+    companion object {
 
-    fun getJuegos(nombreConsola:String):List<Juego>{
-        if(juegos.size==0){
-            Datos.getAllJuegos(this)
-            Thread.sleep(1000)
+        var juegos: List<Juego> = ArrayList<Juego>()
+        var genero = "All";
+
+
+        fun getJuegos(nombreConsola: String): List<Juego> {
+            if (juegos.size == 0) {
+                Datos.getAllJuegos()
+                Thread.sleep(1000)
+            }
+
+            var toRet : List<Juego> = ArrayList<Juego>(juegos);
+            if (nombreConsola.equals("All") && genero.equals("All")) //Todas las consolas y géneros
+                return ArrayList<Juego>(juegos)
+
+            if(nombreConsola.equals("All")) { //Todas las consolas
+                toRet = toRet.filter { j -> j.genero == genero }
+                return toRet
+            }
+
+
+            if(genero.equals("All")) { //Todos los generos
+                toRet = toRet.filter { j -> j.consola == nombreConsola }
+                return toRet
+            }
+            else
+            {
+                toRet = toRet.filter { j -> j.consola==nombreConsola && j.genero==genero }
+            }
+
+            return toRet
         }
-        if (nombreConsola.equals("All"))
-            return ArrayList<Juego>(juegos)
 
-        var toRet = ArrayList<Juego>()
-        for( juego in juegos ){
-            if(juego.consola==nombreConsola)
-                toRet.add(juego)
-
+        fun updateJuegos(juegos: List<Juego>) {
+            this.juegos = juegos
         }
-        return toRet
-    }
 
-    fun updateJuegos(juegos:List<Juego>){
-        this.juegos=juegos
-    }
 
+    }
 
 
 

@@ -2,6 +2,8 @@ package com.example.gamegallery;
 
 import android.os.Bundle;
 
+import com.example.gamegallery.domain.Info;
+import com.example.gamegallery.tabs.TabBase;
 import com.example.gamegallery.ui.gallery.GalleryFragment;
 import com.example.gamegallery.ui.home.HomeFragment;
 import com.example.gamegallery.ui.send.SendFragment;
@@ -42,6 +44,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +67,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new HomeFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
     }
 
     @Override
@@ -88,27 +91,37 @@ implements NavigationView.OnNavigationItemSelectedListener{
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (menuItem.getItemId()){
-            case R.id.nav_gallery:
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
+            case R.id.nav_genre_Action:
+
+                filtar("Accion",fragmentManager);
                 break;
             case R.id.nav_home:
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new HomeFragment()).commit();
+
+                filtar("All",fragmentManager);
                 break;
-            case R.id.nav_slideshow:
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new SlideshowFragment()).commit();
+            case R.id.nav_genre_Race:
+                filtar("Carreras",fragmentManager);
                 break;
-            case R.id.nav_send:
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new SendFragment()).commit();
+            case R.id.nav_genre_RPG:
+                filtar("RPG",fragmentManager);
                 break;
-            case R.id.nav_share:
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new ShareFragment()).commit();
+            case R.id.nav_genre_Shooter:
+                filtar("Shooter",fragmentManager);
                 break;
-            case R.id.nav_tools:
-                fragmentManager.beginTransaction().replace(R.id.contenedor,new ToolsFragment()).commit();
+            case R.id.nav_genre_Sport:
+                filtar("Deportes",fragmentManager);
+                break;
+            case R.id.nav_genre_Terror:
+                filtar("Terror",fragmentManager);
                 break;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void filtar(String genero,FragmentManager fragmentManager){
+        Info.Companion.setGenero(genero);
+        fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
     }
 }
