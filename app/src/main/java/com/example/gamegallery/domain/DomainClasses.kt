@@ -5,20 +5,20 @@ import android.os.Parcelable
 import java.net.URL
 import java.text.FieldPosition
 
-data class Juego(val nombre:String?, val icon: String?, val consola : String?, val genero:String?): Parcelable{
+data class Juego(val nombre:String?, val icon: String?, val consola : List<String>, val genero:String?): Parcelable{
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
-            parcel.readString(),
+            arrayListOf<String>().apply {
+                parcel.readArrayList(String::class.java.classLoader)
+            },
             parcel.readString()
-            ) {
-    }
-
+            )
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(nombre)
         dest?.writeString(icon)
-        dest?.writeString(consola)
+        dest?.writeList(consola)
         dest?.writeString(genero)
     }
 

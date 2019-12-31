@@ -27,12 +27,12 @@ class Info {
 
 
             if(genero.equals("All")) { //Todos los generos
-                toRet = toRet.filter { j -> j.consola == nombreConsola }
+                toRet = toRet.filter { j -> j.consola.contains(nombreConsola) }
                 return toRet
             }
             else
             {
-                toRet = toRet.filter { j -> j.consola==nombreConsola && j.genero==genero }
+                toRet = toRet.filter { j -> j.consola.contains(nombreConsola) && j.genero==genero }
             }
 
             return toRet

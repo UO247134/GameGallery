@@ -23,9 +23,13 @@ class Datos {
                         for (document in result) {
                             var nombre = document.get("nombre").toString()
                             var icon = document.get("icon").toString()
-                            var consola = document.get("consola").toString()
+                            var consola: List<String>? = document.get("consola") as? List<String>
+                            var consolas : List<String> = ArrayList<String>()
+                            if(consola!=null)
+                                consolas=consola;
+
                             var genero = document.get("genero").toString()
-                            var j = Juego(nombre,icon,consola,genero)
+                            var j = Juego(nombre,icon,consolas,genero)
                             juegos.add(j)
 
                         }

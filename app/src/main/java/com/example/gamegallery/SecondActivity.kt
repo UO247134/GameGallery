@@ -17,7 +17,7 @@ class SecondActivity : AppCompatActivity() {
         var parcel = intent.extras?.getParcelable<Juego>("Juego")
 
 
-        addTextView(linLayout,parcel?.consola)
+        addTextView(linLayout,parcel?.consola.toString())
         addTextView(linLayout,parcel?.nombre)
 
     }
