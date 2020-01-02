@@ -14,12 +14,12 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
-    <string name="tab_text_1">Todos</string>
-    <string name="tab_text_2">3rdParty</string>
-    <string name="tab_text_3">PC</string>
-    <string name="tab_text_4">PS4</string>
-    <string name="tab_text_5">XboxOne</string>
-    <string name="tab_text_6">Switch</string>
+    <string name="Todos">Todos</string>
+    <string name="_3rdParty">3rd Party</string>
+    <string name="PC">PC</string>
+    <string name="PS4">PS4</string>
+    <string name="Xbox">Xbox</string>
+    <string name="Switch">Switch</string>
 
     <string name="menu_genre_Action">Accion</string>
     <string name="menu_genre_Terror">Terror</string>
@@ -28,4 +28,6 @@
     <string name="menu_genre_Sport">Deportes</string>
     <string name="menu_genre_RPG">RPG</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="seleccionarConsolas">Seleccione las consolas a mostrar</string>
 </resources>

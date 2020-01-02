@@ -6,9 +6,10 @@ class Info {
 
     companion object {
 
+        var plataformas = listOf("PS4","Switch","Xbox","PC","3rd Party")
         var juegos: List<Juego> = ArrayList<Juego>()
         var genero = "All";
-
+        var plataformasAMostrar : MutableMap<String,Boolean> = mutableMapOf(plataformas[0] to true, plataformas[1] to true, plataformas[2] to true, plataformas[3] to true, plataformas[4] to true) //Todas se muestran por defecto
 
         fun getJuegos(nombreConsola: String): List<Juego> {
             if (juegos.size == 0) {
@@ -42,6 +43,21 @@ class Info {
             this.juegos = juegos
         }
 
+        fun getVisibles():MutableMap<Int,String>{
+            var result : MutableMap<Int,String> = HashMap<Int,String>()
+            result[0]="All";
+
+            var counter=1;
+
+           for (plataforma in plataformasAMostrar.keys){
+               if(plataformasAMostrar[plataforma]==true){
+                   result[counter]=plataforma;
+                   counter++;
+               }
+
+           }
+            return result;
+        }
 
     }
 

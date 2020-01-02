@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.tab_base.*
 
 open class TabBase(private val nombreConsola:String) : Fragment()
 {
-
+    constructor():this("All")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.tab_base,container,false)

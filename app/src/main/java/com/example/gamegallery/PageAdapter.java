@@ -1,5 +1,7 @@
 package com.example.gamegallery;
 
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -7,9 +9,12 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.gamegallery.domain.Info;
 import com.example.gamegallery.tabs.TabBase;
 
+import java.io.Console;
+import java.util.Map;
+
 public class PageAdapter extends FragmentStatePagerAdapter {
-    public int counttab;
-    String[] tituloTabs={"AllGames","3rdParty","PC","PS4","Xbox","Switch"};
+    Map<Integer,String> plataformas = Info.Companion.getVisibles();
+
 
 
     public PageAdapter(FragmentManager fm){
@@ -17,31 +22,19 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     }
     @Override
     public Fragment getItem(int position) {
-        switch(position){
-            case 0:
-                return new TabBase("All");
-            case 1:
-                return new TabBase("3rd Party");
-            case 2:
-                return new TabBase("PC");
-            case 3:
-                return new TabBase("PS4");
-            case 4:
-                return new TabBase("Xbox");
-            case 5:
-                return new TabBase("Switch");
-            default:
-                return null;
-        }
+        String nombre = plataformas.get(position);
+        if(nombre==null)
+            Log.e("Error","Pos:" +position+" Plataformas" + plataformas.size());
+        return new TabBase(plataformas.get(position));
     }
     @Override
     public CharSequence getPageTitle(int position){
-        return tituloTabs[position];
+        return plataformas.get(position);
     }
 
     @Override
     public int getCount() {
-        return tituloTabs.length;
+        return plataformas.size();
     }
 
 }

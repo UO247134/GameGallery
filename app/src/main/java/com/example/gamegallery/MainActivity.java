@@ -1,5 +1,6 @@
 package com.example.gamegallery;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.gamegallery.domain.Info;
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+       this.recreate();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +88,11 @@ implements NavigationView.OnNavigationItemSelectedListener{
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
-        if(id==R.id.action_settings)
-            return true;
+        if(id==R.id.action_settings){
+            Intent intent = new Intent(this.getApplicationContext(),SettingsActivity.class);
+            this.getApplicationContext().startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -124,4 +134,6 @@ implements NavigationView.OnNavigationItemSelectedListener{
         Info.Companion.setGenero(genero);
         fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
     }
+
+
 }
