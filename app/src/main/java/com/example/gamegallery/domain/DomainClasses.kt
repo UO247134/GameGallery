@@ -66,3 +66,7 @@ data class Juego(val nombre:String?, val icon: String?, val consola : List<Strin
 
 }
 
+data class Usuario(val usuario:String, val contraseña:String,val correo:String){
+
+}
+

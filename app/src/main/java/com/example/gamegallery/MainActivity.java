@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.gamegallery.domain.Info;
+import com.example.gamegallery.domain.Usuario;
 import com.example.gamegallery.tabs.TabBase;
 import com.example.gamegallery.ui.gallery.GalleryFragment;
 import com.example.gamegallery.ui.home.HomeFragment;
@@ -32,6 +33,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener{
@@ -41,7 +43,8 @@ implements NavigationView.OnNavigationItemSelectedListener{
     @Override
     protected void onRestart() {
         super.onRestart();
-       this.recreate();
+        this.recreate();
+        updateUsuario(Info.Companion.getUsuarioActual());
     }
 
     @Override
@@ -56,8 +59,9 @@ implements NavigationView.OnNavigationItemSelectedListener{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(),LoginActivity.class);
+
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -75,6 +79,9 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
+
+
+
     }
 
     @Override
@@ -133,6 +140,16 @@ implements NavigationView.OnNavigationItemSelectedListener{
     private void filtar(String genero,FragmentManager fragmentManager){
         Info.Companion.setGenero(genero);
         fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
+    }
+
+    public void updateUsuario(Usuario usuario){
+        NavigationView nv = findViewById(R.id.nav_view);
+        View v = nv.getHeaderView(0);
+        TextView txtUsuario = v.findViewById(R.id.txtUsuarioHeader);
+        txtUsuario.setText(usuario.getUsuario());
+        TextView txtCorreo = v.findViewById(R.id.txtCorreoHeader);
+        txtCorreo.setText(usuario.getCorreo());
+
     }
 
 

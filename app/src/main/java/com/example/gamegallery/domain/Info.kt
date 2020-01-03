@@ -1,5 +1,6 @@
 package com.example.gamegallery.domain
 
+import com.example.gamegallery.MainActivity
 import com.example.gamegallery.datos.Datos
 
 class Info {
@@ -10,6 +11,30 @@ class Info {
         var juegos: List<Juego> = ArrayList<Juego>()
         var genero = "All";
         var plataformasAMostrar : MutableMap<String,Boolean> = mutableMapOf(plataformas[0] to true, plataformas[1] to true, plataformas[2] to true, plataformas[3] to true, plataformas[4] to true) //Todas se muestran por defecto
+        var usuarios: List<Usuario> = ArrayList<Usuario>();
+        var usuarioActual = Usuario("default","none","none@none.com")
+
+        fun setUsuario(user: String, password: String): Boolean{
+            if(usuarios.size==0){
+                Datos.getAllUsers();
+
+                Thread.sleep(3000);
+            }
+
+            for(usuario in usuarios){
+                if(usuario.usuario==user && usuario.contraseña==password){
+                    usuarioActual=usuario
+                    return true;
+                }
+
+            }
+            return false;
+
+        }
+
+        fun updateUsuarios(usuarios:List<Usuario>){
+            this.usuarios=usuarios;
+        }
 
         fun getJuegos(nombreConsola: String): List<Juego> {
             if (juegos.size == 0) {
