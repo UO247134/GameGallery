@@ -19,11 +19,10 @@ class SettingsActivity : AppCompatActivity() {
             if(settingsLayout[i] is CheckBox){
                 var cb = (settingsLayout[i] as CheckBox)
                 var texto = cb.text.toString()
-                var checked = Info.plataformasAMostrar[texto];
-                if(checked!=null)
-                    cb.isChecked=checked;
-                else
-                    throw RuntimeException("Nombre de plataforma no encontrado")
+                var checked = Info.usuarioActual.consolas.contains(texto)
+                cb.isChecked=checked;
+
+
 
             }
         }
@@ -36,7 +35,11 @@ class SettingsActivity : AppCompatActivity() {
                 var cb = (settingsLayout[i] as CheckBox)
                 var texto : String = cb.text.toString()
                 var checked = cb.isChecked
-                Info.plataformasAMostrar[texto]=checked;
+                if(checked && !Info.usuarioActual.consolas.contains(texto))
+                    Info.usuarioActual.consolas.add(texto);
+                if(!checked && Info.usuarioActual.consolas.contains(texto))
+                    Info.usuarioActual.consolas.remove(texto);
+
             }
         }
 

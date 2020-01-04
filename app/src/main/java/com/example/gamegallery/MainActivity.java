@@ -44,7 +44,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
     protected void onRestart() {
         super.onRestart();
         this.recreate();
-        updateUsuario(Info.Companion.getUsuarioActual());
+
     }
 
     @Override
@@ -80,7 +80,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
 
-
+        updateUsuario(Info.Companion.getUsuarioActual());
 
     }
 
@@ -152,5 +152,9 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Info.Companion.actualizarPreferenciasUsuario();
+    }
 }

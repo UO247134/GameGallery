@@ -11,8 +11,8 @@ class Info {
         var juegos: List<Juego> = ArrayList<Juego>()
         var genero = "All";
         var plataformasAMostrar : MutableMap<String,Boolean> = mutableMapOf(plataformas[0] to true, plataformas[1] to true, plataformas[2] to true, plataformas[3] to true, plataformas[4] to true) //Todas se muestran por defecto
-        var usuarios: List<Usuario> = ArrayList<Usuario>();
-        var usuarioActual = Usuario("default","none","none@none.com")
+        var usuarios: MutableList<Usuario> = ArrayList<Usuario>();
+        var usuarioActual = Usuario("default","none","none@none.com", ArrayList(plataformas))
 
         fun setUsuario(user: String, password: String): Boolean{
             if(usuarios.size==0){
@@ -23,6 +23,7 @@ class Info {
 
             for(usuario in usuarios){
                 if(usuario.usuario==user && usuario.contraseña==password){
+                    actualizarPreferenciasUsuario()
                     usuarioActual=usuario
                     return true;
                 }
@@ -32,13 +33,14 @@ class Info {
 
         }
 
-        fun updateUsuarios(usuarios:List<Usuario>){
+        fun updateUsuarios(usuarios:MutableList<Usuario>){
             this.usuarios=usuarios;
         }
 
         fun getJuegos(nombreConsola: String): List<Juego> {
             if (juegos.size == 0) {
                 Datos.getAllJuegos()
+                Datos.getAllUsers()
                 Thread.sleep(1000)
             }
 
@@ -74,16 +76,29 @@ class Info {
 
             var counter=1;
 
-           for (plataforma in plataformasAMostrar.keys){
-               if(plataformasAMostrar[plataforma]==true){
+           for (plataforma in usuarioActual.consolas){
                    result[counter]=plataforma;
                    counter++;
                }
 
-           }
+
             return result;
         }
+        fun existeUsuario( usuario: String):Boolean{
+            usuarios.forEach { u -> if(u.usuario==usuario) return true }
 
+            return false
+        }
+
+        fun addUsuario(usuario:Usuario){
+            usuarios.add(usuario)
+            Datos.addUsuario(usuario)
+        }
+
+        fun actualizarPreferenciasUsuario(){
+            if(usuarios.contains(usuarioActual))
+                Datos.actualizarPreferencias(usuarioActual);
+        }
     }
 
 

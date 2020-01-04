@@ -69,8 +69,12 @@ class Datos {
                             var user = document.get("usuario").toString()
                             var password = document.get("password").toString()
                             var correo = document.get("correo").toString()
+                            var consola: MutableList<String>? = document.get("consolas") as? MutableList<String>
+                            var consolas : MutableList<String> = ArrayList()
+                            if(consola!=null)
+                                consolas=consola
 
-                            var u = Usuario(user,password,correo)
+                            var u = Usuario(user,password,correo,consolas)
                             usuarios.add(u)
 
                         }
@@ -82,6 +86,62 @@ class Datos {
 
 
         }
+
+        fun addUsuario(usuario:Usuario){
+            val data = hashMapOf(
+                    "correo" to usuario.correo,
+                    "password" to usuario.contraseña,
+                    "usuario" to usuario.usuario,
+                    "consolas" to usuario.consolas
+            )
+
+
+            val db = FirebaseFirestore.getInstance()
+
+            db.collection("users")
+                    .add(data)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        throw Exception()
+                    }
+        }
+
+        fun actualizarPreferencias(usuario: Usuario){
+            var id_doc = ""
+            val db = FirebaseFirestore.getInstance()
+
+            db.collection("users")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            var id = "${document.id}"
+                            var user = document.get("usuario").toString()
+                            if(user==usuario.usuario){
+                                id_doc=id;
+                                break
+                            }
+
+                        }
+                        actualizarDocumento(id_doc,usuario)
+                    }
+                    .addOnFailureListener { exception ->
+                        throw exception
+                    }
+
+
+        }
+
+        private fun actualizarDocumento(id_doc:String,usuario: Usuario){
+
+            val db = FirebaseFirestore.getInstance()
+            val documento =db.collection("users").document(id_doc)
+            documento.update("consolas",usuario.consolas)
+
+        }
+
+
 
     }
 

@@ -32,7 +32,9 @@
     <string name="login">Iniciar Sesión</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
-    <string name="registrar">Registrar</string>
+    <string name="registrar">Registrarse</string>
+    <string name="correo">Correo</string>
+    <string name="repetirPassword">Repetir Contraseña</string>
 
     <string name="seleccionarConsolas">Seleccione las consolas a mostrar</string>
 </resources>

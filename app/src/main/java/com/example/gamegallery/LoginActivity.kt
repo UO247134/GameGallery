@@ -1,5 +1,6 @@
 package com.example.gamegallery
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,5 +26,12 @@ class LoginActivity : AppCompatActivity() {
         else{
             Toast.makeText(this.applicationContext,"El usuario no está registrado",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    fun crearRegistro(view: View){
+
+        val intent = Intent(this.applicationContext, RegistroActivity::class.java)
+        this.applicationContext.startActivity(intent)
+
     }
 }
