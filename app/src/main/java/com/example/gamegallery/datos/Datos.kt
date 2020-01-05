@@ -25,18 +25,21 @@ class Datos {
                             var nombre = document.get("nombre").toString()
 
                             var icon = document.get("icon").toString()
-
-                            var consola: List<String>? = document.get("consola") as? List<String>
-                            var consolas : List<String> = ArrayList()
+                            @Suppress("UNCHECKED_CAST")
+                            var consola: List<String>? = document.get("consola") as List<String>?
+                            var consolas : ArrayList<String> = ArrayList()
                             if(consola!=null)
-                                consolas=consola
+                                for (con in consola){
+                                    consolas.add(con)
+                                }
 
                             var videoUrl = document.get("videoUrl").toString()
-
-                            var comment : List<String>? = document.get("comments") as? List<String>
-                            var comments : List<String> = ArrayList()
-                            if(comment!=null)
-                                comments=comment
+                            @Suppress("UNCHECKED_CAST")
+                            var comment : List<String> = document.get("comments") as List<String>
+                            var comments : ArrayList<String> = ArrayList()
+                                for (com in comment){
+                                    comments.add(com)
+                                }
 
                             var point : List<Boolean>? = document.get("points") as? List<Boolean>
                             var points : List<Boolean> = ArrayList()
@@ -51,7 +54,7 @@ class Datos {
                         Info.updateJuegos(juegos)
                     }
                     .addOnFailureListener { exception ->
-                       throw exception
+                        throw exception
                     }
 
 

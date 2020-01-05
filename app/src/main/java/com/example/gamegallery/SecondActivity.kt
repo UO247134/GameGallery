@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.VideoView
 import com.example.gamegallery.domain.Juego
+import com.google.android.youtube.player.YouTubePlayerView
 import kotlinx.android.synthetic.main.activity_concrete_game.*
 
 class SecondActivity : AppCompatActivity() {
@@ -20,9 +21,10 @@ class SecondActivity : AppCompatActivity() {
 
         addImageView(linLayout, parcel?.icon)
         //addVideoView(linLayout, parcel?.videoUrl)
-        addTextView(linLayout,parcel?.consola.toString())
+        addTextViewWithArray(linLayout,parcel?.consola)
         addTextView(linLayout,parcel?.nombre)
         addTextView(linLayout,parcel?.genero)
+        Log.d("Genero", parcel?.genero.toString())
         addTextViewWithArray(linLayout,parcel?.comments)
 
         //addTextView(linLayout,parcel?.getTotalValuation().toString())
@@ -55,8 +57,8 @@ class SecondActivity : AppCompatActivity() {
 
     }
     private fun addVideoView(ll : LinearLayout, url:String?){
-        val vv = VideoView(this)
-        vv.setVideoURI(Uri.parse(url))
+        val vv = YouTubePlayerView(this)
+
         ll.addView(vv)
 
     }
