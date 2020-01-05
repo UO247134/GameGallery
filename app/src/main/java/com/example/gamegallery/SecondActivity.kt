@@ -1,6 +1,5 @@
 package com.example.gamegallery
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +9,9 @@ import android.widget.TextView
 import android.widget.VideoView
 import com.example.gamegallery.domain.Juego
 import com.google.android.youtube.player.YouTubePlayerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_concrete_game.*
+import org.jetbrains.anko.find
 
 class SecondActivity : AppCompatActivity() {
 
@@ -19,13 +20,12 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_concrete_game)
         var parcel = intent.extras?.getParcelable<Juego>("Juego")
 
-        addImageView(linLayout, parcel?.icon)
+        addImageView(linLayout,parcel?.icon)
         //addVideoView(linLayout, parcel?.videoUrl)
-        addTextViewWithArray(linLayout,parcel?.consola)
+        addTextView(linLayout,parcel?.consola.toString())
         addTextView(linLayout,parcel?.nombre)
         addTextView(linLayout,parcel?.genero)
-        Log.d("Genero", parcel?.genero.toString())
-        addTextViewWithArray(linLayout,parcel?.comments)
+        addTextView(linLayout,parcel?.comments.toString())
 
         //addTextView(linLayout,parcel?.getTotalValuation().toString())
 
@@ -38,34 +38,30 @@ class SecondActivity : AppCompatActivity() {
         ll.addView(tv)
 
     }
-    private fun addTextViewWithArray(ll: LinearLayout, array: List<String>?){
-        val tv = TextView(this)
+    private fun addTextViewWithArray(array: List<String>?): String {
         val retorno = ""
+
         if (array != null) {
             Log.d("TAMAÑO",array.size.toString())
-        }
-        if (array != null) {
             array.forEach {
                 retorno.plus(it).plus("\n")
                 Log.d("COMMENT",it)
             }
         }
 
-        tv.text = retorno
-        tv.textSize = 40.0f
-        ll.addView(tv)
+        return retorno
 
     }
+
     private fun addVideoView(ll : LinearLayout, url:String?){
         val vv = YouTubePlayerView(this)
 
         ll.addView(vv)
 
     }
-    private fun addImageView(ll : LinearLayout, url:String?){
-        val iv = ImageView(this)
-        iv.setImageURI(Uri.parse(url))
-        ll.addView(iv)
+    private fun addImageView(ll : LinearLayout, icon: String?){
+        var image = ll.find<ImageView>(R.id.gameLogo)
+        Picasso.with(this).load(icon).fit().into(image)
 
     }
 }

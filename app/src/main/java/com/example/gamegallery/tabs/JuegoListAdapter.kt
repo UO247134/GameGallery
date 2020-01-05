@@ -18,7 +18,7 @@ class JuegoListAdapter (val listaJuegos: List<Juego>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_juego, parent, false)
-        return ViewHolder(view);
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

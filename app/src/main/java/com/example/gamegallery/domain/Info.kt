@@ -9,14 +9,14 @@ class Info {
 
         var plataformas = listOf("PS4","Switch","Xbox","PC","3rd Party")
         var juegos: List<Juego> = ArrayList<Juego>()
-        var genero = "All";
+        var genero = "All"
         var plataformasAMostrar : MutableMap<String,Boolean> = mutableMapOf(plataformas[0] to true, plataformas[1] to true, plataformas[2] to true, plataformas[3] to true, plataformas[4] to true) //Todas se muestran por defecto
         var usuarios: MutableList<Usuario> = ArrayList<Usuario>();
         var usuarioActual = Usuario("default","none","none@none.com", ArrayList(plataformas))
 
         fun setUsuario(user: String, password: String): Boolean{
             if(usuarios.size==0){
-                Datos.getAllUsers();
+                Datos.getAllUsers()
 
                 Thread.sleep(3000);
             }
@@ -25,7 +25,7 @@ class Info {
                 if(usuario.usuario==user && usuario.contraseña==password){
                     actualizarPreferenciasUsuario()
                     usuarioActual=usuario
-                    return true;
+                    return true
                 }
 
             }
@@ -97,7 +97,7 @@ class Info {
 
         fun actualizarPreferenciasUsuario(){
             if(usuarios.contains(usuarioActual))
-                Datos.actualizarPreferencias(usuarioActual);
+                Datos.actualizarPreferencias(usuarioActual)
         }
     }
 

@@ -44,7 +44,7 @@ data class Juego(val nombre:String?, val icon: String?, var consola : java.util.
         var retorno= 0
         points.forEach{
             if(it){
-                retorno++;
+                retorno++
             }
         }
         return retorno*100/points.size
