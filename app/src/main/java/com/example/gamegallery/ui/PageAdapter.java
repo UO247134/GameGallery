@@ -1,4 +1,4 @@
-package com.example.gamegallery;
+package com.example.gamegallery.ui;
 
 import android.util.Log;
 
@@ -7,9 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.gamegallery.domain.Info;
-import com.example.gamegallery.tabs.TabBase;
+import com.example.gamegallery.ui.tabs.TabBase;
 
-import java.io.Console;
 import java.util.Map;
 
 public class PageAdapter extends FragmentStatePagerAdapter {

@@ -47,6 +47,8 @@ class Datos {
                                 points=point
 
                             var genero = document.get("genero").toString()
+
+
                             var j = Juego(nombre,icon,consolas,genero,videoUrl,comments,points)
                             juegos.add(j)
 

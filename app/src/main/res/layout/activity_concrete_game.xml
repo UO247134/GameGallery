@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".ui.SecondActivity">
 
     <LinearLayout
         android:id="@+id/linLayout"
@@ -28,6 +28,7 @@
             android:id="@+id/gameLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/logo_juego"
             app:srcCompat="@drawable/default_game" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

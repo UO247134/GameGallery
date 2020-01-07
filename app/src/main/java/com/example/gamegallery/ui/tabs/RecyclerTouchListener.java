@@ -1,4 +1,4 @@
-package com.example.gamegallery.tabs;
+package com.example.gamegallery.ui.tabs;
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;

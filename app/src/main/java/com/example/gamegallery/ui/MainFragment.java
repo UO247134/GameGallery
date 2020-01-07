@@ -1,25 +1,20 @@
-package com.example.gamegallery.ui.gallery;
+package com.example.gamegallery.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.gamegallery.PageAdapter;
+import com.example.gamegallery.ui.PageAdapter;
 import com.example.gamegallery.R;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
-public class GalleryFragment extends Fragment {
+public class MainFragment extends Fragment {
 
     private AppBarLayout appBar;
     private TabLayout tabs;
@@ -42,6 +37,10 @@ public class GalleryFragment extends Fragment {
 
         return view;
 
+    }
+
+    public TabLayout getTabs(){
+        return tabs;
     }
 
     @Override

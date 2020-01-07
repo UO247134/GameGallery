@@ -1,17 +1,17 @@
-package com.example.gamegallery
+package com.example.gamegallery.ui
 
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.VideoView
+import com.example.gamegallery.R
 import com.example.gamegallery.domain.Juego
 import com.google.android.youtube.player.YouTubePlayerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_concrete_game.*
-import org.jetbrains.anko.find
 
 class SecondActivity : AppCompatActivity() {
 
@@ -20,21 +20,30 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_concrete_game)
         var parcel = intent.extras?.getParcelable<Juego>("Juego")
 
+        addTextView(linLayout,parcel?.nombre,30.0f,true)
         addImageView(linLayout,parcel?.icon)
         //addVideoView(linLayout, parcel?.videoUrl)
-        addTextView(linLayout,parcel?.consola.toString())
-        addTextView(linLayout,parcel?.nombre)
-        addTextView(linLayout,parcel?.genero)
-        addTextView(linLayout,parcel?.comments.toString())
+        var consolas="\nConsolas: \n";
+        parcel?.consola?.forEachIndexed { index, consola -> consolas+=consola+" - "}
+        consolas=consolas.substring(0,consolas.length-3)
+        addTextView(linLayout,consolas)
+
+        addTextView(linLayout,"\nGénero: "+parcel?.genero)
+        var comentarios = "\nComentarios:\n";
+        parcel?.comments?.forEach{ c -> comentarios+="-> "+c+"\n"}
+        addTextView(linLayout,comentarios)
 
         //addTextView(linLayout,parcel?.getTotalValuation().toString())
 
     }
 
-    private fun addTextView(ll : LinearLayout, text:String?){
+    private fun addTextView(ll : LinearLayout, text:String?,size: Float=20.0f,bold:Boolean=false){
         val tv = TextView(this)
         tv.text = text
-        tv.textSize = 40.0f
+        tv.textSize = size
+        if(bold)
+            tv.setTypeface(null,Typeface.BOLD)
+        tv.textAlignment= View.TEXT_ALIGNMENT_CENTER
         ll.addView(tv)
 
     }
@@ -60,8 +69,8 @@ class SecondActivity : AppCompatActivity() {
 
     }
     private fun addImageView(ll : LinearLayout, icon: String?){
-        var image = ll.find<ImageView>(R.id.gameLogo)
-        Picasso.with(this).load(icon).fit().into(image)
+
+        Picasso.with(this).load(icon).into(gameLogo)
 
     }
 }

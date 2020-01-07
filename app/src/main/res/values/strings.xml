@@ -37,4 +37,5 @@
     <string name="repetirPassword">Repetir Contraseña</string>
 
     <string name="seleccionarConsolas">Seleccione las consolas a mostrar</string>
+    <string name="logo_juego">Logo del juego</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.gamegallery.domain
 
-import com.example.gamegallery.MainActivity
 import com.example.gamegallery.datos.Datos
 
 class Info {
@@ -10,17 +9,11 @@ class Info {
         var plataformas = listOf("PS4","Switch","Xbox","PC","3rd Party")
         var juegos: List<Juego> = ArrayList<Juego>()
         var genero = "All"
-        var plataformasAMostrar : MutableMap<String,Boolean> = mutableMapOf(plataformas[0] to true, plataformas[1] to true, plataformas[2] to true, plataformas[3] to true, plataformas[4] to true) //Todas se muestran por defecto
         var usuarios: MutableList<Usuario> = ArrayList<Usuario>();
         var usuarioActual = Usuario("default","none","none@none.com", ArrayList(plataformas))
+        var valido=false;
 
         fun setUsuario(user: String, password: String): Boolean{
-            if(usuarios.size==0){
-                Datos.getAllUsers()
-
-                Thread.sleep(3000);
-            }
-
             for(usuario in usuarios){
                 if(usuario.usuario==user && usuario.contraseña==password){
                     actualizarPreferenciasUsuario()
@@ -38,12 +31,6 @@ class Info {
         }
 
         fun getJuegos(nombreConsola: String): List<Juego> {
-            if (juegos.size == 0) {
-                Datos.getAllJuegos()
-                Datos.getAllUsers()
-                Thread.sleep(1000)
-            }
-
             var toRet : List<Juego> = ArrayList<Juego>(juegos);
             if (nombreConsola.equals("All") && genero.equals("All")) //Todas las consolas y géneros
                 return ArrayList<Juego>(juegos)
@@ -98,6 +85,11 @@ class Info {
         fun actualizarPreferenciasUsuario(){
             if(usuarios.contains(usuarioActual))
                 Datos.actualizarPreferencias(usuarioActual)
+        }
+
+        fun cargarDatos(){
+            Datos.getAllJuegos()
+            Datos.getAllUsers()
         }
     }
 

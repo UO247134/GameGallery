@@ -1,21 +1,15 @@
-package com.example.gamegallery;
+package com.example.gamegallery.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.example.gamegallery.R;
 import com.example.gamegallery.domain.Info;
 import com.example.gamegallery.domain.Usuario;
-import com.example.gamegallery.tabs.TabBase;
-import com.example.gamegallery.ui.gallery.GalleryFragment;
-import com.example.gamegallery.ui.home.HomeFragment;
-import com.example.gamegallery.ui.send.SendFragment;
-import com.example.gamegallery.ui.share.ShareFragment;
-import com.example.gamegallery.ui.slideshow.SlideshowFragment;
-import com.example.gamegallery.ui.tools.ToolsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,11 +28,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
+    private MainFragment fragment;
 
     @Override
     protected void onRestart() {
@@ -78,10 +74,56 @@ implements NavigationView.OnNavigationItemSelectedListener{
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
+        fragment = new MainFragment();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).commit();
+
+        descargarDatos();
 
         updateUsuario(Info.Companion.getUsuarioActual());
 
+    }
+
+    private void descargarDatos(){
+        if(!Info.Companion.getValido())
+            new DownloadDataTask().execute();
+    }
+
+    private class DownloadDataTask extends AsyncTask<Void,Integer,Void> {
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            this.progressDialog = new ProgressDialog(MainActivity.this);
+            this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.show();
+
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+            progressDialog.setProgress(progress[0]);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Info.Companion.cargarDatos();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            Info.Companion.setValido(true);
+            this.progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "Contenido Descargado", Toast.LENGTH_SHORT).show();
+            repintar();
+        }
+    }
+
+    public void repintar(){
+      getSupportFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
+       Toast.makeText(getApplicationContext(),"Recreated", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -109,11 +151,9 @@ implements NavigationView.OnNavigationItemSelectedListener{
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (menuItem.getItemId()){
             case R.id.nav_genre_Action:
-
                 filtar("Accion",fragmentManager);
                 break;
             case R.id.nav_home:
-
                 filtar("All",fragmentManager);
                 break;
             case R.id.nav_genre_Race:
@@ -139,7 +179,9 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
     private void filtar(String genero,FragmentManager fragmentManager){
         Info.Companion.setGenero(genero);
-        fragmentManager.beginTransaction().replace(R.id.contenedor,new GalleryFragment()).commit();
+        fragment=new MainFragment();
+        fragmentManager.beginTransaction().replace(R.id.contenedor,fragment).commit();
+
     }
 
     public void updateUsuario(Usuario usuario){

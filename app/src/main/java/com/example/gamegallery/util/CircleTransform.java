@@ -1,4 +1,4 @@
-package com.example.gamegallery.datos;
+package com.example.gamegallery.util;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;

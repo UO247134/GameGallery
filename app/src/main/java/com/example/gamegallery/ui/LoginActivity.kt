@@ -1,10 +1,11 @@
-package com.example.gamegallery
+package com.example.gamegallery.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.example.gamegallery.R
 import com.example.gamegallery.domain.Info
 import kotlinx.android.synthetic.main.activity_login.*
 
