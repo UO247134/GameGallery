@@ -12,6 +12,7 @@ import com.example.gamegallery.domain.Juego
 import com.google.android.youtube.player.YouTubePlayerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_concrete_game.*
+import java.text.SimpleDateFormat
 
 class SecondActivity : AppCompatActivity() {
 
@@ -27,6 +28,9 @@ class SecondActivity : AppCompatActivity() {
         parcel?.consola?.forEachIndexed { index, consola -> consolas+=consola+" - "}
         consolas=consolas.substring(0,consolas.length-3)
         addTextView(linLayout,consolas)
+
+        var fecha = parcel?.fecha_lanzamiento
+        addTextView(linLayout,"\nFecha Lanzamiento: "+ SimpleDateFormat("dd-MM-yyyy").format(fecha));
 
         addTextView(linLayout,"\nGénero: "+parcel?.genero)
         var comentarios = "\nComentarios:\n";

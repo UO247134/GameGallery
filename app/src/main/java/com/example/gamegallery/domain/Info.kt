@@ -32,24 +32,31 @@ class Info {
 
         fun getJuegos(nombreConsola: String): List<Juego> {
             var toRet : List<Juego> = ArrayList<Juego>(juegos);
-            if (nombreConsola.equals("All") && genero.equals("All")) //Todas las consolas y géneros
-                return ArrayList<Juego>(juegos)
+            if (nombreConsola.equals("All") && genero.equals("All")) { //Todas las consolas y géneros
+                return ordenar(ArrayList<Juego>(juegos))
+            }
 
             if(nombreConsola.equals("All")) { //Todas las consolas
                 toRet = toRet.filter { j -> j.genero == genero }
-                return toRet
+                return ordenar(toRet)
             }
 
 
             if(genero.equals("All")) { //Todos los generos
                 toRet = toRet.filter { j -> j.consola!!.contains(nombreConsola) }
-                return toRet
+                return ordenar(toRet)
             }
             else
             {
                 toRet = toRet.filter { j -> j.consola!!.contains(nombreConsola) && j.genero==genero }
             }
 
+            return ordenar(toRet)
+        }
+
+        private fun ordenar(lista : List<Juego>):List<Juego>{
+            var toRet=lista.sortedBy { x -> x.fecha_lanzamiento.time }
+            toRet = toRet.reversed()
             return toRet
         }
 

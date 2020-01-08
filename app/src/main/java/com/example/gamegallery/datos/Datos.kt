@@ -5,8 +5,11 @@ import android.util.Log
 import com.example.gamegallery.domain.Info
 import com.example.gamegallery.domain.Juego
 import com.example.gamegallery.domain.Usuario
+import com.google.firebase.Timestamp
 
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Datos {
 
@@ -48,8 +51,10 @@ class Datos {
 
                             var genero = document.get("genero").toString()
 
+                            var fecha_lanzamiento : Timestamp = document.get("fecha_lanzamiento") as Timestamp
+                            var fecha_lanz : Date = fecha_lanzamiento.toDate()
 
-                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments,points)
+                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments,points,fecha_lanz)
                             juegos.add(j)
 
                         }

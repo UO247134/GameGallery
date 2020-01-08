@@ -81,6 +81,12 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
         updateUsuario(Info.Companion.getUsuarioActual());
 
+        if(Info.Companion.getUsuarioActual().getUsuario().equals("default") && Info.Companion.getValido()==false){
+            Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(i);
+        }
+
+
     }
 
     private void descargarDatos(){
@@ -117,13 +123,12 @@ implements NavigationView.OnNavigationItemSelectedListener{
             Info.Companion.setValido(true);
             this.progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Contenido Descargado", Toast.LENGTH_SHORT).show();
-            repintar();
+
         }
     }
 
     public void repintar(){
       getSupportFragmentManager().beginTransaction().detach(fragment).attach(fragment).commit();
-       Toast.makeText(getApplicationContext(),"Recreated", Toast.LENGTH_LONG).show();
     }
 
     @Override
