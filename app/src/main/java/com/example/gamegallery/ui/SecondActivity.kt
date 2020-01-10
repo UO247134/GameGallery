@@ -29,9 +29,11 @@ class SecondActivity : AppCompatActivity() {
         var parcel = intent.extras?.getParcelable<Juego>("Juego")
 
         addTextView(linLayout,parcel?.nombre,30.0f,true)
-        addImageView(linLayout,parcel?.icon)
+
+        addImageView(parcel?.icon)
+
         addVideoView(parcel?.videoUrl)
-        //addVideoView(linLayout, parcel?.videoUrl)
+
         var consolas="\nConsolas: \n";
         parcel?.consola?.forEachIndexed { index, consola -> consolas+=consola+" - "}
         consolas=consolas.substring(0,consolas.length-3)
@@ -41,11 +43,13 @@ class SecondActivity : AppCompatActivity() {
         addTextView(linLayout,"\nFecha Lanzamiento: "+ SimpleDateFormat("dd-MM-yyyy").format(fecha));
 
         addTextView(linLayout,"\nGénero: "+parcel?.genero)
+
         var comentarios = "\nComentarios:\n";
         parcel?.comments?.forEach{ c -> comentarios+="-> "+c+"\n"}
         addTextView(linLayout,comentarios)
 
-        //addTextView(linLayout,parcel?.getTotalValuation().toString())
+        addTextView(linLayout,"\nPuntuacion: "+parcel?.points)
+
 
     }
 
@@ -59,20 +63,7 @@ class SecondActivity : AppCompatActivity() {
         ll.addView(tv)
 
     }
-    private fun addTextViewWithArray(array: List<String>?): String {
-        val retorno = ""
 
-        if (array != null) {
-            Log.d("TAMAÑO",array.size.toString())
-            array.forEach {
-                retorno.plus(it).plus("\n")
-                Log.d("COMMENT",it)
-            }
-        }
-
-        return retorno
-
-    }
 
     private fun addVideoView(url:String?){
         val playButton = findViewById<Button>(id.ButtonPlay)
@@ -83,7 +74,7 @@ class SecondActivity : AppCompatActivity() {
         }
 
     }
-    private fun addImageView(ll : LinearLayout, icon: String?){
+    private fun addImageView(icon: String?){
 
         Picasso.with(this).load(icon).into(gameLogo)
 

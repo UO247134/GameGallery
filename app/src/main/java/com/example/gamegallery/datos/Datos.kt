@@ -54,7 +54,7 @@ class Datos {
                             var fecha_lanzamiento : Timestamp = document.get("fecha_lanzamiento") as Timestamp
                             var fecha_lanz : Date = fecha_lanzamiento.toDate()
 
-                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments,points,fecha_lanz)
+                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments, calculateTotalPoints(points),fecha_lanz)
                             juegos.add(j)
 
                         }
@@ -66,7 +66,19 @@ class Datos {
 
 
         }
+        private fun calculateTotalPoints(votes : List<Boolean>): Int {
+            var retorno = 0
 
+            if(votes.size==0)
+                return retorno
+            for (vote in votes){
+                if(vote){
+                    retorno++
+                }
+            }
+
+            return 100*retorno/votes.size
+        }
         fun getAllUsers(){
             var usuarios = ArrayList<Usuario>()
 

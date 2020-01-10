@@ -7,8 +7,8 @@ import java.net.URL
 import java.text.FieldPosition
 import java.util.*
 
-data class Juego(val nombre:String?, val icon: String?, var consola : java.util.ArrayList<String>?, val genero:String?,
-                 val videoUrl: String?, var comments: java.util.ArrayList<String>?, var points: List<Boolean>, var fecha_lanzamiento : Date): Parcelable{
+data class Juego(val nombre:String?, val icon: String?, var consola : ArrayList<String>?, val genero:String?,
+                 val videoUrl: String?, var comments: ArrayList<String>?, var points: Int, var fecha_lanzamiento : Date): Parcelable{
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -17,9 +17,7 @@ data class Juego(val nombre:String?, val icon: String?, var consola : java.util.
             parcel.readString(),
             parcel.readString(),
             parcel.createStringArrayList(),
-            arrayListOf<Boolean>().apply {
-                parcel.readArrayList(Boolean::class.java.classLoader)
-            },
+            parcel.readInt(),
             Date(parcel.readLong())
             )
     override fun writeToParcel(dest: Parcel?, flags: Int) {
@@ -29,27 +27,11 @@ data class Juego(val nombre:String?, val icon: String?, var consola : java.util.
         dest?.writeString(genero)
         dest?.writeString(videoUrl)
         dest?.writeStringArray(comments?.toTypedArray())
-        dest?.writeList(points)
+        dest?.writeInt(points)
         dest?.writeLong(fecha_lanzamiento.time)
     }
 
     override fun describeContents(): Int = Parcelable.CONTENTS_FILE_DESCRIPTOR
-
-    fun postComment(comment: String){
-        //comments += comment
-    }
-    fun postValuation(valuation: Boolean){
-        points += valuation
-    }
-    fun getTotalValuation(): Int {
-        var retorno= 0
-        points.forEach{
-            if(it){
-                retorno++
-            }
-        }
-        return retorno*100/points.size
-    }
 
     companion object CREATOR : Parcelable.Creator<Juego> {
         override fun createFromParcel(parcel: Parcel): Juego {
