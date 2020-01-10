@@ -129,7 +129,7 @@ class Datos {
                             var id = "${document.id}"
                             var user = document.get("usuario").toString()
                             if(user==usuario.usuario){
-                                id_doc=id;
+                                id_doc=id
                                 break
                             }
 

@@ -30,5 +30,15 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/logo_juego"
             app:srcCompat="@drawable/default_game" />
+
+        <Button
+            android:id="@+id/ButtonPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="195dp"
+            android:text="@string/play_trailer"
+            android:visibility="visible"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

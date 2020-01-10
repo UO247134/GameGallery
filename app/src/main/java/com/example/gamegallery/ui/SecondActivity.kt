@@ -5,11 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.example.gamegallery.R
+import com.example.gamegallery.R.id
 import com.example.gamegallery.domain.Juego
+import com.example.gamegallery.util.PlayerConfig
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
+import com.google.android.youtube.player.YouTubeStandalonePlayer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_concrete_game.*
 import java.text.SimpleDateFormat
@@ -23,6 +30,7 @@ class SecondActivity : AppCompatActivity() {
 
         addTextView(linLayout,parcel?.nombre,30.0f,true)
         addImageView(linLayout,parcel?.icon)
+        addVideoView(parcel?.videoUrl)
         //addVideoView(linLayout, parcel?.videoUrl)
         var consolas="\nConsolas: \n";
         parcel?.consola?.forEachIndexed { index, consola -> consolas+=consola+" - "}
@@ -66,10 +74,13 @@ class SecondActivity : AppCompatActivity() {
 
     }
 
-    private fun addVideoView(ll : LinearLayout, url:String?){
-        val vv = YouTubePlayerView(this)
-
-        ll.addView(vv)
+    private fun addVideoView(url:String?){
+        val playButton = findViewById<Button>(id.ButtonPlay)
+        playButton.setOnClickListener {
+                val intent = YouTubeStandalonePlayer.createVideoIntent(this,PlayerConfig.API_KEY,url,
+                        0, true, true)
+                startActivity(intent)
+        }
 
     }
     private fun addImageView(ll : LinearLayout, icon: String?){
