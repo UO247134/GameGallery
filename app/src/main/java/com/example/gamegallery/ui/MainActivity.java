@@ -144,6 +144,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
         if(id==R.id.action_settings){
             Intent intent = new Intent(this.getApplicationContext(),SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
         }
 

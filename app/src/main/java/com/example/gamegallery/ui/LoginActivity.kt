@@ -30,8 +30,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun crearRegistro(view: View){
-
         val intent = Intent(this.applicationContext, RegistroActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         this.applicationContext.startActivity(intent)
 
     }

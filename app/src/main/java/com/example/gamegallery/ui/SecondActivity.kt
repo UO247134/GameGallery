@@ -47,7 +47,7 @@ class SecondActivity : AppCompatActivity() {
         addTextView(linLayout,consolas)
 
         var fecha = parcel?.fecha_lanzamiento
-        addTextView(linLayout,"\nFecha Lanzamiento: "+ SimpleDateFormat("dd-MM-yyyy").format(fecha));
+        addTextView(linLayout,"\nFecha Lanzamiento: "+ SimpleDateFormat("dd-MM-yyyy").format(fecha))
 
         addTextView(linLayout,"\nGénero: "+parcel?.genero)
 
@@ -74,7 +74,7 @@ class SecondActivity : AppCompatActivity() {
     }
 
     private fun addBotonComentario(ll: LinearLayout){
-        var btn : Button = Button(applicationContext)
+        var btn  = Button(applicationContext)
         btn.text=getString(R.string.comentar)
         btn.setOnClickListener{view -> crearComentario()}
         ll.addView(btn)
@@ -130,17 +130,14 @@ class SecondActivity : AppCompatActivity() {
         db.collection("juegos")
                 .get()
                 .addOnSuccessListener { result ->
-                    for (game in result) {
-                        if(gameID.equals("${game.id}")){
-                            var mapa : MutableMap<String,Boolean>? = game.get("valoraciones") as? MutableMap<String,Boolean>
-                            if (mapa != null) {
-                                mapa.put(user,vote)
-                                updatePoints(gameID,mapa)
-                                Toast.makeText(this,"Voto emitido correctamente", Toast.LENGTH_SHORT).show()
-                            }
-                            break
+                    for (game in result) if(gameID == "${game.id}"){
+                        var mapa : MutableMap<String,Boolean>? = game.get("valoraciones") as? MutableMap<String,Boolean>
+                        if (mapa != null) {
+                            mapa[user] = vote
+                            updatePoints(gameID,mapa)
+                            Toast.makeText(this,"Voto emitido correctamente", Toast.LENGTH_SHORT).show()
                         }
-
+                        break
                     }
 
                 }
@@ -152,7 +149,7 @@ class SecondActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        var nombre =parcel?.nombre
+        val nombre =parcel?.nombre
         if(nombre!=null)
         Info.postComentarios(nombre)
     }

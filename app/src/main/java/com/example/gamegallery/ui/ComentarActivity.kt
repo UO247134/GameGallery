@@ -11,12 +11,12 @@ import kotlinx.android.synthetic.main.activity_comentar.*
 
 class ComentarActivity : AppCompatActivity() {
 
-    var juego : Juego? = null;
+    var juego : Juego? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comentar)
-        juego = intent.extras?.getParcelable<Juego>("Juego")
+        juego = intent.extras?.getParcelable("Juego")
 
     }
 
