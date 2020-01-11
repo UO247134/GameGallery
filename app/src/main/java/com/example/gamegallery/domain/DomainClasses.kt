@@ -8,7 +8,7 @@ import java.text.FieldPosition
 import java.util.*
 
 data class Juego(val nombre:String?, val icon: String?, var consola : ArrayList<String>?, val genero:String?,
-                 val videoUrl: String?, var comments: ArrayList<String>?, var points: Int, var fecha_lanzamiento : Date): Parcelable{
+                 val videoUrl: String?, var comments: ArrayList<String>?, var points: Int, var fecha_lanzamiento : Date,var id: String?): Parcelable{
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -18,7 +18,8 @@ data class Juego(val nombre:String?, val icon: String?, var consola : ArrayList<
             parcel.readString(),
             parcel.createStringArrayList(),
             parcel.readInt(),
-            Date(parcel.readLong())
+            Date(parcel.readLong()),
+            parcel.readString()
             )
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(nombre)
@@ -29,6 +30,7 @@ data class Juego(val nombre:String?, val icon: String?, var consola : ArrayList<
         dest?.writeStringArray(comments?.toTypedArray())
         dest?.writeInt(points)
         dest?.writeLong(fecha_lanzamiento.time)
+        dest?.writeString(id)
     }
 
     override fun describeContents(): Int = Parcelable.CONTENTS_FILE_DESCRIPTOR

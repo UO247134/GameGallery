@@ -25,6 +25,7 @@ class Datos {
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
+                            var id = "${document.id}"
                             var nombre = document.get("nombre").toString()
 
                             var icon = document.get("icon").toString()
@@ -51,10 +52,24 @@ class Datos {
 
                             var genero = document.get("genero").toString()
 
+                            var mapa : Map<String,Boolean>? = document.get("valoraciones") as? Map<String,Boolean>
+                            var puntos = 666;
+
+                            if(mapa!=null){
+                                var map: Map<String,Boolean> = mapa
+                                var votos: MutableList<Boolean> = ArrayList()
+                                for (key in map.keys){
+                                    if(map.get(key)!=null);
+                                        //votos.add(map[key]);
+                                }
+                                //calculateTotalPoints()
+                            }
+
+
                             var fecha_lanzamiento : Timestamp = document.get("fecha_lanzamiento") as Timestamp
                             var fecha_lanz : Date = fecha_lanzamiento.toDate()
 
-                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments, calculateTotalPoints(points),fecha_lanz)
+                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments, calculateTotalPoints(points),fecha_lanz,id)
                             juegos.add(j)
 
                         }

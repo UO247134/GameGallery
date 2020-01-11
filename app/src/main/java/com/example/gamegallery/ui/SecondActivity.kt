@@ -50,7 +50,7 @@ class SecondActivity : AppCompatActivity() {
         addTextView(linLayout,comentarios)
 
         addTextView(linLayout,"\nPuntuacion: "+parcel?.points)
-
+        addTextView(linLayout,"\n\n\n")
 
     }
 
