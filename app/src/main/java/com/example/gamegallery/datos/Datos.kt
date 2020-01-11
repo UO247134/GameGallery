@@ -59,17 +59,19 @@ class Datos {
                                 var map: Map<String,Boolean> = mapa
                                 var votos: MutableList<Boolean> = ArrayList()
                                 for (key in map.keys){
-                                    if(map.get(key)!=null);
-                                        //votos.add(map[key]);
+                                    var bool: Boolean? = map[key]
+                                    if(bool!=null)
+                                        votos.add(bool);
+
                                 }
-                                //calculateTotalPoints()
+                                puntos=calculateTotalPoints(votos)
                             }
 
 
                             var fecha_lanzamiento : Timestamp = document.get("fecha_lanzamiento") as Timestamp
                             var fecha_lanz : Date = fecha_lanzamiento.toDate()
 
-                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments, calculateTotalPoints(points),fecha_lanz,id)
+                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments, puntos,fecha_lanz,id)
                             juegos.add(j)
 
                         }
