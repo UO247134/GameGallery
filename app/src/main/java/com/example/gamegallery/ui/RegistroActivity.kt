@@ -26,7 +26,7 @@ class RegistroActivity : AppCompatActivity() {
           view.context.toast("Las contraseñas deben ser iguales")
         else if(correo.isEmpty() || !correo.contains("@"))
             view.context.toast("El correo no es valido")
-        else if (usuario.isEmpty() || !Info.existeUsuario(usuario))
+        else if (usuario.isEmpty() || Info.existeUsuario(usuario))
             view.context.toast("El usuario no puede estar vacío y no puede existir ya")
         else
         {
