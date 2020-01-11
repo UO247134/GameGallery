@@ -17,6 +17,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import com.google.android.youtube.player.YouTubeStandalonePlayer
+import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_concrete_game.*
 import java.text.SimpleDateFormat
@@ -63,8 +64,6 @@ class SecondActivity : AppCompatActivity() {
         ll.addView(tv)
 
     }
-
-
     private fun addVideoView(url:String?){
         val playButton = findViewById<Button>(id.ButtonPlay)
         playButton.setOnClickListener {
@@ -78,5 +77,23 @@ class SecondActivity : AppCompatActivity() {
 
         Picasso.with(this).load(icon).into(gameLogo)
 
+    }
+    private fun addValueButtonsEvent(){
+        val likeButton = findViewById<Button>(id.buttonLike)
+        val dislikeButton = findViewById<Button>(id.buttonDislike)
+
+        likeButton.setOnClickListener{
+            makeVote(true)
+        }
+
+        dislikeButton.setOnClickListener{
+            makeVote(false)
+        }
+
+    }
+    private fun makeVote(vote: Boolean){
+
+        val db = FirebaseFirestore.getInstance()
+        val game =db.collection("juegos")
     }
 }
