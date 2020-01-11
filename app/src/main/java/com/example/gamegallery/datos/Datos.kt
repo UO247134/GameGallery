@@ -53,7 +53,7 @@ class Datos {
                             var genero = document.get("genero").toString()
 
                             var mapa : Map<String,Boolean>? = document.get("valoraciones") as? Map<String,Boolean>
-                            var puntos = 666;
+                            var puntos = 666
 
                             if(mapa!=null){
                                 var map: Map<String,Boolean> = mapa
@@ -61,7 +61,7 @@ class Datos {
                                 for (key in map.keys){
                                     var bool: Boolean? = map[key]
                                     if(bool!=null)
-                                        votos.add(bool);
+                                        votos.add(bool)
 
                                 }
                                 puntos=calculateTotalPoints(votos)
