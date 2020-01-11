@@ -98,6 +98,23 @@ class Info {
             Datos.getAllJuegos()
             Datos.getAllUsers()
         }
+
+        fun addComentario(nombre: String,comentario:String){
+            for (juego in juegos){
+                if(juego.nombre==nombre){
+                    juego.comments?.add(comentario)
+                }
+            }
+        }
+
+        fun postComentarios(nombreJuego:String){
+            for (juego in juegos){
+                if(juego.nombre==nombreJuego){
+                    Datos.subirComentarios(nombreJuego,juego.comments)
+                }
+            }
+
+        }
     }
 
 

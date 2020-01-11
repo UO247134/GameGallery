@@ -1,5 +1,6 @@
 package com.example.gamegallery.ui
 
+import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.gamegallery.R
 import com.example.gamegallery.R.id
+import com.example.gamegallery.domain.Info
 import com.example.gamegallery.domain.Juego
 import com.example.gamegallery.util.PlayerConfig
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -24,10 +26,16 @@ import java.text.SimpleDateFormat
 
 class SecondActivity : AppCompatActivity() {
 
+    override fun onRestart() {
+        super.onRestart()
+        this.recreate()
+    }
+    var parcel : Juego? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concrete_game)
-        var parcel = intent.extras?.getParcelable<Juego>("Juego")
+        parcel = intent.extras?.getParcelable<Juego>("Juego")
 
         addTextView(linLayout,parcel?.nombre,30.0f,true)
 
@@ -46,12 +54,38 @@ class SecondActivity : AppCompatActivity() {
         addTextView(linLayout,"\nGénero: "+parcel?.genero)
 
         var comentarios = "\nComentarios:\n";
-        parcel?.comments?.forEach{ c -> comentarios+="-> "+c+"\n"}
+        for (juego in Info.juegos){
+
+            if(juego.nombre==parcel?.nombre){
+                var comments = juego.comments
+                if(comments!=null){
+                    for(c in comments){
+                        comentarios+="-> "+c+"\n"
+                    }
+                }
+            }
+        }
+
+
         addTextView(linLayout,comentarios)
+        addBotonComentario(linLayout)
 
         addTextView(linLayout,"\nPuntuacion: "+parcel?.points)
-        addTextView(linLayout,"\n\n\n")
 
+        addTextView(linLayout,"\n\n\n")
+    }
+
+    private fun addBotonComentario(ll: LinearLayout){
+        var btn : Button = Button(applicationContext)
+        btn.text=getString(R.string.comentar)
+        btn.setOnClickListener{view -> crearComentario()}
+        ll.addView(btn)
+    }
+
+    private fun crearComentario(){
+        val intent = Intent(this.applicationContext, ComentarActivity::class.java)
+        intent.putExtra("Juego", parcel)
+        this.applicationContext.startActivity(intent)
     }
 
     private fun addTextView(ll : LinearLayout, text:String?,size: Float=20.0f,bold:Boolean=false){
@@ -95,5 +129,12 @@ class SecondActivity : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
         val game =db.collection("juegos")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        var nombre =parcel?.nombre
+        if(nombre!=null)
+        Info.postComentarios(nombre)
     }
 }

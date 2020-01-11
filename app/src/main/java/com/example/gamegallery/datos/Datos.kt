@@ -180,6 +180,36 @@ class Datos {
 
         }
 
+        public fun subirComentarios(nombreJuego:String,comentarios:List<String>?){
+            var id_doc = ""
+            val db = FirebaseFirestore.getInstance()
+
+            db.collection("juegos")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            var id = "${document.id}"
+                            var nombre = document.get("nombre").toString()
+                            if(nombre==nombreJuego){
+                                id_doc=id
+                                break
+                            }
+
+                        }
+                        actualizarDocumentoComentarios(id_doc,comentarios)
+                    }
+                    .addOnFailureListener { exception ->
+                        throw exception
+                    }
+        }
+
+        private fun actualizarDocumentoComentarios(id_doc:String,comentarios:List<String>?){
+
+            val db = FirebaseFirestore.getInstance()
+            val documento =db.collection("juegos").document(id_doc)
+            documento.update("comments",comentarios)
+
+        }
 
 
     }
