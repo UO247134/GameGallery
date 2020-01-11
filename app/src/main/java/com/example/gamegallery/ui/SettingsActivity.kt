@@ -14,13 +14,12 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        for (i in 0..settingsLayout.childCount-1){
+        for (i in 0 until settingsLayout.childCount){
             if(settingsLayout[i] is CheckBox){
-                var cb = (settingsLayout[i] as CheckBox)
-                var texto = cb.text.toString()
-                var checked = Info.usuarioActual.consolas.contains(texto)
-                cb.isChecked=checked;
-
+                val cb = (settingsLayout[i] as CheckBox)
+                val texto = cb.text.toString()
+                val checked = Info.usuarioActual.consolas.contains(texto)
+                cb.isChecked=checked
 
 
             }
@@ -29,15 +28,15 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        for (i in 0..settingsLayout.childCount-1){
+        for (i in 0 until settingsLayout.childCount){
             if(settingsLayout[i] is CheckBox){
-                var cb = (settingsLayout[i] as CheckBox)
-                var texto : String = cb.text.toString()
-                var checked = cb.isChecked
+                val cb = (settingsLayout[i] as CheckBox)
+                val texto : String = cb.text.toString()
+                val checked = cb.isChecked
                 if(checked && !Info.usuarioActual.consolas.contains(texto))
-                    Info.usuarioActual.consolas.add(texto);
+                    Info.usuarioActual.consolas.add(texto)
                 if(!checked && Info.usuarioActual.consolas.contains(texto))
-                    Info.usuarioActual.consolas.remove(texto);
+                    Info.usuarioActual.consolas.remove(texto)
 
             }
         }

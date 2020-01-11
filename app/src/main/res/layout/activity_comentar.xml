@@ -19,7 +19,6 @@
 
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/titulo_comentar"
@@ -31,11 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/titulo_comentar"
             android:inputType="textPersonName"
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="comentar"

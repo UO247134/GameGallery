@@ -1,48 +1,49 @@
 package com.example.gamegallery.domain
 
+import android.annotation.SuppressLint
 import com.example.gamegallery.datos.Datos
 
 class Info {
 
     companion object {
 
-        var plataformas = listOf("PS4","Switch","Xbox","PC","3rd Party")
-        var juegos: List<Juego> = ArrayList<Juego>()
+        private var plataformas = listOf("PS4","Switch","Xbox","PC","3rd Party")
+        var juegos: List<Juego> = ArrayList()
         var genero = "All"
-        var usuarios: MutableList<Usuario> = ArrayList<Usuario>();
+        private var usuarios: MutableList<Usuario> = ArrayList()
         var usuarioActual = Usuario("default","none","none@none.com", ArrayList(plataformas))
-        var valido=false;
+        var valido=false
 
         fun setUsuario(user: String, password: String): Boolean{
             for(usuario in usuarios){
-                if(usuario.usuario==user && usuario.contraseña==password){
+                if(usuario.usuario==user && usuario.contrasena==password){
                     actualizarPreferenciasUsuario()
                     usuarioActual=usuario
                     return true
                 }
 
             }
-            return false;
+            return false
 
         }
 
         fun updateUsuarios(usuarios:MutableList<Usuario>){
-            this.usuarios=usuarios;
+            this.usuarios=usuarios
         }
 
         fun getJuegos(nombreConsola: String): List<Juego> {
-            var toRet : List<Juego> = ArrayList<Juego>(juegos);
-            if (nombreConsola.equals("All") && genero.equals("All")) { //Todas las consolas y géneros
+            var toRet : List<Juego> = ArrayList<Juego>(juegos)
+            if (nombreConsola == "All" && genero == "All") { //Todas las consolas y géneros
                 return ordenar(ArrayList<Juego>(juegos))
             }
 
-            if(nombreConsola.equals("All")) { //Todas las consolas
+            if(nombreConsola == "All") { //Todas las consolas
                 toRet = toRet.filter { j -> j.genero == genero }
                 return ordenar(toRet)
             }
 
 
-            if(genero.equals("All")) { //Todos los generos
+            if(genero == "All") { //Todos los generos
                 toRet = toRet.filter { j -> j.consola!!.contains(nombreConsola) }
                 return ordenar(toRet)
             }
@@ -64,19 +65,20 @@ class Info {
             this.juegos = juegos
         }
 
+        @SuppressLint("UseSparseArrays")
         fun getVisibles():MutableMap<Int,String>{
-            var result : MutableMap<Int,String> = HashMap<Int,String>()
-            result[0]="All";
+            val result : MutableMap<Int,String> = HashMap()
+            result[0]="All"
 
-            var counter=1;
+            var counter=1
 
-           for (plataforma in usuarioActual.consolas){
-                   result[counter]=plataforma;
-                   counter++;
-               }
+            for (plataforma in usuarioActual.consolas){
+                   result[counter]=plataforma
+                counter++
+            }
 
 
-            return result;
+            return result
         }
         fun existeUsuario( usuario: String):Boolean{
             usuarios.forEach { u -> if(u.usuario==usuario) return true }

@@ -2,9 +2,6 @@ package com.example.gamegallery.domain
 
 import android.os.Parcel
 import android.os.Parcelable
-import org.w3c.dom.Comment
-import java.net.URL
-import java.text.FieldPosition
 import java.util.*
 
 data class Juego(val nombre:String?, val icon: String?, var consola : ArrayList<String>?, val genero:String?,
@@ -48,7 +45,5 @@ data class Juego(val nombre:String?, val icon: String?, var consola : ArrayList<
 
 }
 
-data class Usuario(val usuario:String, val contraseña:String,val correo:String,val consolas: MutableList<String>){
-
-}
+data class Usuario(val usuario:String, val contrasena:String, val correo:String, val consolas: MutableList<String>)
 

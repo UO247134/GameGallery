@@ -7,7 +7,6 @@
     tools:context=".ui.RegistroActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayoutRegistro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -18,7 +17,6 @@
         android:layout_margin="20dp" >
 
         <TextView
-            android:id="@+id/lblRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrar"
@@ -26,7 +24,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/lblCorreoReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/correo"
@@ -37,11 +34,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/correo"
             android:inputType="textPersonName"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/lblUserReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/user"
@@ -52,11 +49,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/user"
             android:inputType="textPersonName"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/lblPasswordReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/password"
@@ -67,11 +64,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/lblRepetirPasswordReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/repetirPassword"
@@ -82,11 +79,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/repetirPassword"
             android:inputType="textPassword"
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/btnRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrar"

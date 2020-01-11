@@ -17,10 +17,10 @@ class RegistroActivity : AppCompatActivity() {
     }
 
     fun registrarse(view : View){
-        var correo = txtCorreoReg.text.toString()
-        var usuario = txtUserReg.text.toString()
-        var password = txtPasswordReg.text.toString()
-        var repPassword = txtRepetirPasswordReg.text.toString()
+        val correo = txtCorreoReg.text.toString()
+        val usuario = txtUserReg.text.toString()
+        val password = txtPasswordReg.text.toString()
+        val repPassword = txtRepetirPasswordReg.text.toString()
 
         if(password!=repPassword)
           view.context.toast("Las contraseñas deben ser iguales")
@@ -30,9 +30,9 @@ class RegistroActivity : AppCompatActivity() {
             view.context.toast("El usuario no puede estar vacío y no puede existir ya")
         else
         {
-            var u = Usuario(usuario,password,correo,ArrayList())
-            Info.addUsuario(u);
-            this.finish();
+            val u = Usuario(usuario,password,correo,ArrayList())
+            Info.addUsuario(u)
+            this.finish()
         }
     }
 }

@@ -17,7 +17,7 @@ class Datos {
 
     companion object {
         fun getAllJuegos() {
-            var juegos = ArrayList<Juego>()
+            val juegos = ArrayList<Juego>()
 
             val db = FirebaseFirestore.getInstance()
 
@@ -25,41 +25,37 @@ class Datos {
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
-                            var id = "${document.id}"
-                            var nombre = document.get("nombre").toString()
+                            val id = document.id
+                            val nombre = document.get("nombre").toString()
 
-                            var icon = document.get("icon").toString()
+                            val icon = document.get("icon").toString()
                             @Suppress("UNCHECKED_CAST")
-                            var consola: List<String>? = document.get("consola") as List<String>?
-                            var consolas : ArrayList<String> = ArrayList()
+                            val consola: List<String>? = document.get("consola") as List<String>?
+                            val consolas : ArrayList<String> = ArrayList()
                             if(consola!=null)
                                 for (con in consola){
                                     consolas.add(con)
                                 }
 
-                            var videoUrl = document.get("videoUrl").toString()
+                            val videoUrl = document.get("videoUrl").toString()
                             @Suppress("UNCHECKED_CAST")
-                            var comment : List<String> = document.get("comments") as List<String>
-                            var comments : ArrayList<String> = ArrayList()
+                            val comment : List<String> = document.get("comments") as List<String>
+                            val comments : ArrayList<String> = ArrayList()
                                 for (com in comment){
                                     comments.add(com)
                                 }
 
-                            var point : List<Boolean>? = document.get("points") as? List<Boolean>
-                            var points : List<Boolean> = ArrayList()
-                            if(point!=null)
-                                points=point
 
-                            var genero = document.get("genero").toString()
+                            val genero = document.get("genero").toString()
 
-                            var mapa : Map<String,Boolean>? = document.get("valoraciones") as? Map<String,Boolean>
+                            val mapa : Map<String,Boolean>? = document.get("valoraciones") as Map<String,Boolean>
                             var puntos = 666
 
                             if(mapa!=null){
-                                var map: Map<String,Boolean> = mapa
-                                var votos: MutableList<Boolean> = ArrayList()
+                                val map: Map<String,Boolean> = mapa
+                                val votos: MutableList<Boolean> = ArrayList()
                                 for (key in map.keys){
-                                    var bool: Boolean? = map[key]
+                                    val bool: Boolean? = map[key]
                                     if(bool!=null)
                                         votos.add(bool)
 
@@ -68,10 +64,10 @@ class Datos {
                             }
 
 
-                            var fecha_lanzamiento : Timestamp = document.get("fecha_lanzamiento") as Timestamp
-                            var fecha_lanz : Date = fecha_lanzamiento.toDate()
+                            val fechaLanzamiento : Timestamp = document.get("fecha_lanzamiento") as Timestamp
+                            val fechaLanz : Date = fechaLanzamiento.toDate()
 
-                            var j = Juego(nombre,icon,consolas,genero,videoUrl,comments, puntos,fecha_lanz,id)
+                            val j = Juego(nombre,icon,consolas,genero,videoUrl,comments, puntos,fechaLanz,id)
                             juegos.add(j)
 
                         }
@@ -86,7 +82,7 @@ class Datos {
         private fun calculateTotalPoints(votes : List<Boolean>): Int {
             var retorno = 0
 
-            if(votes.size==0)
+            if(votes.isEmpty())
                 return retorno
             for (vote in votes){
                 if(vote){
@@ -97,7 +93,7 @@ class Datos {
             return 100*retorno/votes.size
         }
         fun getAllUsers(){
-            var usuarios = ArrayList<Usuario>()
+            val usuarios = ArrayList<Usuario>()
 
             val db = FirebaseFirestore.getInstance()
 
@@ -105,15 +101,15 @@ class Datos {
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
-                            var user = document.get("usuario").toString()
-                            var password = document.get("password").toString()
-                            var correo = document.get("correo").toString()
-                            var consola: MutableList<String>? = document.get("consolas") as? MutableList<String>
+                            val user = document.get("usuario").toString()
+                            val password = document.get("password").toString()
+                            val correo = document.get("correo").toString()
+                            val consola: MutableList<String>? = document.get("consolas") as MutableList<String>
                             var consolas : MutableList<String> = ArrayList()
                             if(consola!=null)
                                 consolas=consola
 
-                            var u = Usuario(user,password,correo,consolas)
+                            val u = Usuario(user,password,correo,consolas)
                             usuarios.add(u)
 
                         }
@@ -129,7 +125,7 @@ class Datos {
         fun addUsuario(usuario:Usuario){
             val data = hashMapOf(
                     "correo" to usuario.correo,
-                    "password" to usuario.contraseña,
+                    "password" to usuario.contrasena,
                     "usuario" to usuario.usuario,
                     "consolas" to usuario.consolas
             )
@@ -143,27 +139,27 @@ class Datos {
                         Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
                     }
                     .addOnFailureListener { e ->
-                        throw Exception()
+                        throw Exception(e)
                     }
         }
 
         fun actualizarPreferencias(usuario: Usuario){
-            var id_doc = ""
+            var idDoc = ""
             val db = FirebaseFirestore.getInstance()
 
             db.collection("users")
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
-                            var id = "${document.id}"
-                            var user = document.get("usuario").toString()
+                            val id = document.id
+                            val user = document.get("usuario").toString()
                             if(user==usuario.usuario){
-                                id_doc=id
+                                idDoc=id
                                 break
                             }
 
                         }
-                        actualizarDocumento(id_doc,usuario)
+                        actualizarDocumento(idDoc,usuario)
                     }
                     .addOnFailureListener { exception ->
                         throw exception
@@ -180,23 +176,23 @@ class Datos {
 
         }
 
-        public fun subirComentarios(nombreJuego:String,comentarios:List<String>?){
-            var id_doc = ""
+        fun subirComentarios(nombreJuego:String,comentarios:List<String>?){
+            var idDoc = ""
             val db = FirebaseFirestore.getInstance()
 
             db.collection("juegos")
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
-                            var id = "${document.id}"
-                            var nombre = document.get("nombre").toString()
+                            val id = document.id
+                            val nombre = document.get("nombre").toString()
                             if(nombre==nombreJuego){
-                                id_doc=id
+                                idDoc=id
                                 break
                             }
 
                         }
-                        actualizarDocumentoComentarios(id_doc,comentarios)
+                        actualizarDocumentoComentarios(idDoc,comentarios)
                     }
                     .addOnFailureListener { exception ->
                         throw exception

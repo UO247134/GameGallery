@@ -9,16 +9,20 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.gamegallery.domain.Info;
 import com.example.gamegallery.ui.tabs.TabBase;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
-public class PageAdapter extends FragmentStatePagerAdapter {
-    Map<Integer,String> plataformas = Info.Companion.getVisibles();
+class PageAdapter extends FragmentStatePagerAdapter {
+    private final Map<Integer,String> plataformas = Info.Companion.getVisibles();
 
 
 
     public PageAdapter(FragmentManager fm){
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
+
+    @NotNull
     @Override
     public Fragment getItem(int position) {
         String nombre = plataformas.get(position);

@@ -7,13 +7,12 @@
     tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/barLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="?attr/colorPrimary"

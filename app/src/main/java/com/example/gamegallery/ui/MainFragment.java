@@ -18,7 +18,6 @@ public class MainFragment extends Fragment {
 
     private AppBarLayout appBar;
     private TabLayout tabs;
-    private ViewPager viewPager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -29,7 +28,7 @@ public class MainFragment extends Fragment {
         tabs = new TabLayout(getActivity());
         appBar.addView(tabs);
 
-        viewPager = view.findViewById(R.id.pager);
+        ViewPager viewPager = view.findViewById(R.id.pager);
         viewPager.setAdapter(new PageAdapter(getFragmentManager()));
         tabs.setupWithViewPager(viewPager);
 
@@ -37,10 +36,6 @@ public class MainFragment extends Fragment {
 
         return view;
 
-    }
-
-    public TabLayout getTabs(){
-        return tabs;
     }
 
     @Override

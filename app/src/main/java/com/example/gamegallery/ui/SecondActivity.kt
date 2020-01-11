@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.gamegallery.R
 import com.example.gamegallery.R.id
+import com.example.gamegallery.datos.Datos
 import com.example.gamegallery.domain.Info
 import com.example.gamegallery.domain.Juego
 import com.example.gamegallery.util.PlayerConfig
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_concrete_game.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 class SecondActivity : AppCompatActivity() {
 
@@ -26,7 +28,8 @@ class SecondActivity : AppCompatActivity() {
         super.onRestart()
         this.recreate()
     }
-    var parcel : Juego? = null
+    private var parcel : Juego? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,24 +44,28 @@ class SecondActivity : AppCompatActivity() {
 
         addValueButtonsEvent(Info.usuarioActual.usuario,parcel?.id.toString())
 
-        var consolas="\nConsolas: \n";
-        parcel?.consola?.forEachIndexed { index, consola -> consolas+=consola+" - "}
+        var consolas="\nConsolas: \n"
+        parcel?.consola?.forEach { consola -> consolas+= "$consola - " }
         consolas=consolas.substring(0,consolas.length-3)
         addTextView(linLayout,consolas)
 
-        var fecha = parcel?.fecha_lanzamiento
-        addTextView(linLayout,"\nFecha Lanzamiento: "+ SimpleDateFormat("dd-MM-yyyy").format(fecha))
+        val date = parcel?.fecha_lanzamiento
+        var fecha = Date()
+        if(date!=null){
+            fecha=date
+        }
+        addTextView(linLayout,"\nFecha Lanzamiento: "+ SimpleDateFormat("dd-MM-yyyy",Locale("es","ES")).format(fecha))
 
         addTextView(linLayout,"\nGénero: "+parcel?.genero)
 
-        var comentarios = "\nComentarios:\n";
+        var comentarios = "\nComentarios:\n"
         for (juego in Info.juegos){
 
             if(juego.nombre==parcel?.nombre){
-                var comments = juego.comments
+                val comments = juego.comments
                 if(comments!=null){
                     for(c in comments){
-                        comentarios+="-> "+c+"\n"
+                        comentarios+= "-> $c\n"
                     }
                 }
             }
@@ -70,15 +77,18 @@ class SecondActivity : AppCompatActivity() {
 
         addTextView(linLayout,"\nPuntuacion: "+parcel?.points)
 
+
         addTextView(linLayout,"\n\n\n")
     }
 
     private fun addBotonComentario(ll: LinearLayout){
-        var btn  = Button(applicationContext)
+        val btn  = Button(applicationContext)
         btn.text=getString(R.string.comentar)
-        btn.setOnClickListener{view -> crearComentario()}
+        btn.setOnClickListener{crearComentario()}
         ll.addView(btn)
     }
+
+
 
     private fun crearComentario(){
         val intent = Intent(this.applicationContext, ComentarActivity::class.java)
@@ -87,7 +97,7 @@ class SecondActivity : AppCompatActivity() {
         this.applicationContext.startActivity(intent)
     }
 
-    private fun addTextView(ll : LinearLayout, text:String?,size: Float=20.0f,bold:Boolean=false){
+    private fun addTextView(ll : LinearLayout, text:String?,size: Float=20.0f,bold:Boolean=false):TextView{
         val tv = TextView(this)
         tv.text = text
         tv.textSize = size
@@ -95,7 +105,7 @@ class SecondActivity : AppCompatActivity() {
             tv.setTypeface(null,Typeface.BOLD)
         tv.textAlignment= View.TEXT_ALIGNMENT_CENTER
         ll.addView(tv)
-
+        return tv
     }
     private fun addVideoView(url:String?){
         val playButton = findViewById<Button>(id.ButtonPlay)
@@ -130,8 +140,8 @@ class SecondActivity : AppCompatActivity() {
         db.collection("juegos")
                 .get()
                 .addOnSuccessListener { result ->
-                    for (game in result) if(gameID == "${game.id}"){
-                        var mapa : MutableMap<String,Boolean>? = game.get("valoraciones") as? MutableMap<String,Boolean>
+                    for (game in result) if(gameID == game.id){
+                        val mapa : MutableMap<String,Boolean>? = game.get("valoraciones") as MutableMap<String,Boolean>
                         if (mapa != null) {
                             mapa[user] = vote
                             updatePoints(gameID,mapa)
@@ -141,7 +151,7 @@ class SecondActivity : AppCompatActivity() {
                     }
 
                 }
-                .addOnFailureListener { exception ->
+                .addOnFailureListener {
                     Toast.makeText(this,"Voto no ha podido ser emitido", Toast.LENGTH_SHORT).show()
                 }
 

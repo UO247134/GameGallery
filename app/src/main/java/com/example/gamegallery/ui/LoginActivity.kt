@@ -17,15 +17,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(view: View){
-        var usuario = txtUser.text.toString()
-        var password = txtPassword.text.toString()
+        val usuario = txtUser.text.toString()
+        val password = txtPassword.text.toString()
 
         if(Info.setUsuario(usuario,password)){
-            Toast.makeText(this.applicationContext,"Sesión Iniciada",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.applicationContext,"Sesión Iniciada",Toast.LENGTH_SHORT).show()
             this.finish()
         }
         else{
-            Toast.makeText(this.applicationContext,"El usuario no está registrado",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.applicationContext,"El usuario no está registrado",Toast.LENGTH_SHORT).show()
         }
     }
 

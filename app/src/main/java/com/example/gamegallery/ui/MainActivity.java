@@ -47,7 +47,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
 
@@ -65,7 +65,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,drawer,toolbar,R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -81,7 +81,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
         updateUsuario(Info.Companion.getUsuarioActual());
 
-        if(Info.Companion.getUsuarioActual().getUsuario().equals("default") && Info.Companion.getValido()==false){
+        if(Info.Companion.getUsuarioActual().getUsuario().equals("default") && !Info.Companion.getValido()){
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(i);
         }
@@ -190,7 +190,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
 
     }
 
-    public void updateUsuario(Usuario usuario){
+    private void updateUsuario(Usuario usuario){
         NavigationView nv = findViewById(R.id.nav_view);
         View v = nv.getHeaderView(0);
         TextView txtUsuario = v.findViewById(R.id.txtUsuarioHeader);

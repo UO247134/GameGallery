@@ -30,7 +30,7 @@ open class TabBase(private val nombreConsola:String) : Fragment()
 
     }
 
-    class MyClickListener(val nombreConsola: String) : RecyclerTouchListener.ClickListener {
+    class MyClickListener(private val nombreConsola: String) : RecyclerTouchListener.ClickListener {
         override fun onLongClick(view: View?, position: Int) {
 
         }
